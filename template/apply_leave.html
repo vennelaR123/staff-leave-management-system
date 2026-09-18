@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apply Leave</title>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+
+        .container {
+            width: 350px;
+            margin: 80px auto;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0px 8px 20px rgba(0,0,0,0.3);
+            color: white;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 22px;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        select, input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: none;
+            border-radius: 6px;
+            outline: none;
+        }
+
+        textarea {
+            resize: none;
+            height: 80px;
+        }
+
+        select:focus, input:focus, textarea:focus {
+            border: 2px solid #fff;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 20px;
+            padding: 10px;
+            background: #ff7eb3;
+            border: none;
+            border-radius: 6px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #ff4f9a;
+        }
+
+        a {
+            display: block;
+            text-align: center;
+            margin-top: 15px;
+            color: white;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>Apply Leave</h1>
+
+        <form method="post">
+            {% csrf_token %}
+
+            <label>Leave Type</label>
+            <select name="leave_type" required>
+                <option value="">Select</option>
+                <option>Casual Leave</option>
+                <option>Sick Leave</option>
+                <option>Emergency Leave</option>
+            </select>
+
+            <label>Start Date</label>
+            <input type="date" name="start" required>
+
+            <label>End Date</label>
+            <input type="date" name="end" required>
+
+            <label>Reason</label>
+            <textarea name="reason" required></textarea>
+
+            <button type="submit">Submit</button>
+        </form>
+
+        <a href="{% url 'staff_dashboard' %}">Back to Dashboard</a>
+    </div>
+
+</body>
+</html>

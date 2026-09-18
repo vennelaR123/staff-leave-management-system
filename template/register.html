@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SLMS Registration</title>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #7d37ce, #b31a4f);
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .card {
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+            width: 320px;
+            text-align: center;
+            color: rgb(0, 0, 0);
+        }
+
+        h1 {
+            margin-bottom: 5px;
+        }
+
+        h2 {
+            font-size: 14px;
+            margin-bottom: 25px;
+            color: #e0e0e0;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: none;
+            border-radius: 8px;
+            outline: none;
+        }
+
+        label {
+            float: left;
+            font-size: 14px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 15px;
+            border: none;
+            border-radius: 10px;
+            background: linear-gradient(to right, #43e97b, #38f9d7);
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+        }
+
+        a {
+            color: #ffccff;
+            text-decoration: none;
+        }
+
+        p {
+            font-size: 13px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <div class="card">
+
+        <h1>SLMS Registration</h1>
+        <h2>Staff Leave Management System</h2>
+
+        <form method="Post">
+            {% csrf_token %}
+
+            <label>Username</label>
+            <input type="text" name="username" required>
+
+            <label>Password</label>
+            <input type="password" name="password" required>
+
+            <label>Role</label>
+            <select name="role" required>
+                <option value="">--select Role--</option>
+                <option value="admin">Admin</option>
+                <option value="Staff">Staff</option>
+            </select>
+
+            <p>Admin can manage staff and approve the leave request</p>
+
+            <button type="submit">Register</button>
+        </form>
+
+        <p>Already have an account?
+            <a href="{% url 'login' %}">Login</a>
+        </p>
+
+    </div>
+</div>
+
+</body>
+</html>

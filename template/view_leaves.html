@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Leave Requests</title>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+
+        .container {
+            width: 95%;
+            max-width: 1100px;
+            margin: 50px auto 20px auto;
+            background: #fff;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0px 8px 20px rgba(0,0,0,0.2);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #444;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        th {
+            background: #667eea;
+            color: white;
+            padding: 12px;
+        }
+
+        td {
+            padding: 10px;
+            text-align: center;
+        }
+
+        tr:nth-child(even) {
+            background: #f2f2f2;
+        }
+
+        tr:hover {
+            background: #e6e6ff;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        .approve {
+            color: white;
+            background: #28a745;
+            padding: 6px 10px;
+            border-radius: 5px;
+            text-decoration: none;
+            margin-right: 5px;
+        }
+
+        .reject {
+            color: white;
+            background: #dc3545;
+            padding: 6px 10px;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+
+        .approve:hover {
+            background: #218838;
+        }
+
+        .reject:hover {
+            background: #c82333;
+        }
+
+        .status {
+            font-weight: bold;
+            text-transform: capitalize;
+        }
+
+        .pending { color: orange; }
+        .approved { color: green; }
+        .rejected { color: red; }
+
+        /* Logout Button Styling */
+        .logout {
+            display: block;
+            width: 150px;
+            margin: 20px auto 40px auto;
+            text-align: center;
+            padding: 10px;
+            background: #ff4d4d;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+
+        .logout:hover {
+            background: #cc0000;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h2>Staff Leave Requests</h2>
+
+        <table>
+            <tr>
+                <th>Staff Name</th>
+                <th>Leave Type</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Reason</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+
+            {% for leave in leaves %}
+            <tr>
+                <td>{{ leave.user.username }}</td>
+                <td>{{ leave.leave_type }}</td>
+                <td>{{ leave.start_date }}</td>
+                <td>{{ leave.end_date }}</td>
+                <td>{{ leave.reason }}</td>
+
+                <td class="status {{ leave.status }}">
+                    {{ leave.status }}
+                </td>
+
+                <td>
+                    {% if leave.status == 'pending' %}
+                        <a href="{% url 'approve_leave' leave.id %}" class="approve">Approve</a>
+                        <a href="{% url 'reject_leave' leave.id %}" class="reject">Reject</a>
+                    {% else %}
+                        -
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    <a href="{% url 'logout' %}" class="logout">Logout</a>
+
+</body>
+</html>
